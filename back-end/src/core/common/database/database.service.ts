@@ -5,7 +5,7 @@ import { type IDBService } from './database.inteface'
 export class DatabaseService implements IDBService {
   public client: PrismaClient
 
-  constructor (private readonly logger: ILoggerService) {
+  constructor (public readonly logger: ILoggerService) {
     const prisma = new PrismaClient()
     this.client = prisma
   }

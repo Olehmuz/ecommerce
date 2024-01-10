@@ -1,5 +1,5 @@
-import { type ILoggerService } from './logger.inteface'
 import pino from 'pino'
+import { type ILoggerService } from './logger.inteface'
 
 export class LoggerService implements ILoggerService {
   private readonly logger: pino.Logger

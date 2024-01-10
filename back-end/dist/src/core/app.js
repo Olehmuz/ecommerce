@@ -14,21 +14,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.App = void 0;
 const express_1 = __importDefault(require("express"));
-const body_parser_middleware_1 = require("./common/middleware/body-parser.middleware");
+const body_parser_middleware_1 = require("./common/middlewares/body-parser.middleware");
 class App {
-    constructor(logger, config, authController, exceptionFilter, databaseService) {
+    constructor(logger, config, exceptionFilter, databaseService, authController, categoriesController, brandsController) {
         var _a;
         this.logger = logger;
         this.config = config;
-        this.authController = authController;
         this.exceptionFilter = exceptionFilter;
         this.databaseService = databaseService;
+        this.authController = authController;
+        this.categoriesController = categoriesController;
+        this.brandsController = brandsController;
         this.app = (0, express_1.default)();
         this.server = this.app.listen((_a = process.env.PORT) !== null && _a !== void 0 ? _a : 7777, () => {
             var _a;
             this.logger.info(`[APP] Server running on port ${(_a = process.env.PORT) !== null && _a !== void 0 ? _a : 7777}`);
         });
-        this.controllers = [authController];
+        this.controllers = [authController, categoriesController, brandsController];
         this.middlewares = [new body_parser_middleware_1.BodyParserMiddleware()];
     }
     init() {
@@ -63,6 +65,7 @@ class App {
     }
     useExceptionFilter() {
         this.app.use(this.exceptionFilter.catch.bind(this.exceptionFilter));
+        this.logger.info('[APP] Exception filter is setted');
     }
 }
 exports.App = App;

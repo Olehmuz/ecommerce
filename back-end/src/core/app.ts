@@ -5,8 +5,8 @@ import express from 'express'
 import { type BaseController } from './common/base.controller'
 import { type IDBService } from './common/database/database.inteface'
 import { type IException } from './common/errors/exception-filter.inteface'
-import { BodyParserMiddleware } from './common/middleware/body-parser.middleware'
-import { type IMiddleware } from './common/middleware/middleware.inteface'
+import { BodyParserMiddleware } from './common/middlewares/body-parser.middleware'
+import { type IMiddleware } from './common/middlewares/middleware.inteface'
 import { type IConfigService } from './config/config-service.interface'
 import { type ILoggerService } from './logger/logger.inteface'
 
@@ -18,15 +18,19 @@ export class App {
   constructor (
     public readonly logger: ILoggerService,
     private readonly config: IConfigService,
-    private readonly authController: BaseController,
     private readonly exceptionFilter: IException,
-    private readonly databaseService: IDBService
+    private readonly databaseService: IDBService,
+    private readonly authController: BaseController,
+    private readonly categoriesController: BaseController,
+    private readonly brandsController: BaseController
   ) {
     this.app = express()
     this.server = this.app.listen(process.env.PORT ?? 7777, () => {
-      this.logger.info(`[APP] Server running on port ${process.env.PORT ?? 7777}`)
+      this.logger.info(
+        `[APP] Server running on port ${process.env.PORT ?? 7777}`
+      )
     })
-    this.controllers = [authController]
+    this.controllers = [authController, categoriesController, brandsController]
     this.middlewares = [new BodyParserMiddleware()]
   }
 
@@ -63,5 +67,6 @@ export class App {
 
   private useExceptionFilter (): void {
     this.app.use(this.exceptionFilter.catch.bind(this.exceptionFilter))
+    this.logger.info('[APP] Exception filter is setted')
   }
 }

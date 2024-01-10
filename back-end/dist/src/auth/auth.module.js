@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthModule = void 0;
 const brandi_1 = require("brandi");
-const auth_controller_1 = require("./auth.controller");
 const tokens_1 = require("../core/container/tokens");
+const auth_controller_1 = require("./auth.controller");
 exports.AuthModule = new brandi_1.DependencyModule();
 exports.AuthModule.bind(tokens_1.TOKENS.authController).toInstance(auth_controller_1.AuthController).inContainerScope();
 exports.AuthModule.bind(tokens_1.TOKENS.authPrefix).toConstant('auth');

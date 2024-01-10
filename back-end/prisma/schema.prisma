@@ -8,9 +8,94 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  name      String?
+  id        String   @id @default(uuid())	
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
+  email     String   @unique
+  name      String?
+  hashedPassword String
+  role      Roles     @default(USER)
+}
+
+enum Roles {
+  USER
+  ADMIN
+}
+
+model Device {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    images String[]
+    reviews Review[]
+    specs Spec[]
+
+    model String
+    price Int
+    description String
+
+    categoryId String
+    category Category @relation(fields: [categoryId], references: [id])
+
+    brandId String
+    brand Brand @relation(fields: [brandId], references: [id])
+
+}
+
+model Review {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    rating Int
+    comment String
+
+    deviceId String
+    device   Device @relation(fields: [deviceId], references: [id])
+}
+
+model Category {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    name String
+    devices Device[]
+}
+
+model Brand {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    name String
+    devices Device[]
+}
+
+model Spec {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    name String
+    variant SpecVariant[]
+
+    deviceId String
+    device   Device @relation(fields: [deviceId], references: [id])
+}
+
+model SpecVariant {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    name String
+    value String
+
+    specId String
+    spec   Spec @relation(fields: [specId], references: [id])
+
+    price Int
 }

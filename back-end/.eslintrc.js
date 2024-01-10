@@ -34,16 +34,15 @@ module.exports = {
             pattern: '@/**',
             group: 'internal'
           }
-        ],
-        alphabetize: {
-          order: 'asc'
-        }
+        ]
       }
     ],
     '@typescript-eslint/no-useless-constructor': 'off',
     '@typescript-eslint/no-extraneous-class': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
-    '@typescript-eslint/unbound-method': 'off'
+    '@typescript-eslint/unbound-method': 'off',
+    '@typescript-eslint/consistent-indexed-object-style': 'off',
+    '@typescript-eslint/ban-types': 'off'
   }
 }

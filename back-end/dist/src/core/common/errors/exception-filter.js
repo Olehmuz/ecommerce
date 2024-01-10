@@ -10,14 +10,15 @@ class ExceptionFilter {
         if (err instanceof http_error_1.HttpError) {
             this.logger.error(`[EXCEPTION] code: ${err.code}, message: ${err.message}`);
             res.status(err.code).send({
-                err: err.message,
+                message: err.message,
                 code: err.code
             });
         }
         else {
             this.logger.error(`[EXCEPTION] message: ${err.message}]`);
             res.status(500).send({
-                err: err.message
+                err: err.message,
+                code: 500
             });
         }
     }

@@ -1,9 +1,9 @@
 import { type NextFunction, type Request, type Response, type Router } from 'express'
-import { type IMiddleware } from '../middleware/middleware.inteface'
+import { type IMiddleware } from '../middlewares/middleware.inteface'
 
 export interface IControllerRoute {
   path: string
-  func: (req: Request, res: Response, next: NextFunction) => void
+  func: (req: any, res: Response, next: NextFunction) => Promise<any> | any
   method: keyof Pick<Router, 'get' | 'post' | 'patch' | 'put' | 'delete'>
   middlewares?: IMiddleware[]
 }

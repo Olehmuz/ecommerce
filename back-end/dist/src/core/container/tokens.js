@@ -9,5 +9,13 @@ exports.TOKENS = {
     authController: (0, brandi_1.token)('authController'),
     authPrefix: (0, brandi_1.token)('authPrefix'),
     exceptionFilter: (0, brandi_1.token)('exception'),
-    databaseService: (0, brandi_1.token)('databaseService')
+    databaseService: (0, brandi_1.token)('databaseService'),
+    categoriesPrefix: (0, brandi_1.token)('categoriesPrefix'),
+    categoriesRepository: (0, brandi_1.token)('categoriesRepository'),
+    categoriesController: (0, brandi_1.token)('categoriesController'),
+    categoriesService: (0, brandi_1.token)('categoriesService'),
+    brandsPrefix: (0, brandi_1.token)('brandsPrefix'),
+    brandsRepository: (0, brandi_1.token)('brandsRepository'),
+    brandsController: (0, brandi_1.token)('brandsController'),
+    brandsService: (0, brandi_1.token)('brandsService')
 };
