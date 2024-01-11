@@ -80,10 +80,9 @@ model Spec {
     updatedAt DateTime @updatedAt
 
     name String
-    variant SpecVariant[]
+    variants SpecVariant[]
 
-    deviceId String
-    device   Device @relation(fields: [deviceId], references: [id])
+    device  Device[]
 }
 
 model SpecVariant {
@@ -91,7 +90,6 @@ model SpecVariant {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    name String
     value String
 
     specId String

@@ -11,6 +11,7 @@ import { ConfigService } from '../config/config.service'
 import { LoggerService } from '../logger/logger.service'
 
 import { BrandsModule } from '../../brands/brands.module'
+import { SpecsModule } from '../../specs/specs.module'
 import { TOKENS } from './tokens'
 
 export const container = new Container()
@@ -19,6 +20,7 @@ export const container = new Container()
 container.use(TOKENS.authController).from(AuthModule)
 container.use(TOKENS.categoriesController).from(CategoriesModule)
 container.use(TOKENS.brandsController).from(BrandsModule)
+container.use(TOKENS.specsController).from(SpecsModule)
 
 // Core dependencies
 container.bind(TOKENS.app).toInstance(App).inSingletonScope()
@@ -31,4 +33,4 @@ injected(ConfigService, TOKENS.loggerService)
 injected(ExceptionFilter, TOKENS.loggerService)
 injected(DatabaseService, TOKENS.loggerService)
 
-injected(App, TOKENS.loggerService, TOKENS.configService, TOKENS.exceptionFilter, TOKENS.databaseService, TOKENS.authController, TOKENS.categoriesController, TOKENS.brandsController)
+injected(App, TOKENS.loggerService, TOKENS.configService, TOKENS.exceptionFilter, TOKENS.databaseService, TOKENS.authController, TOKENS.categoriesController, TOKENS.brandsController, TOKENS.specsController)

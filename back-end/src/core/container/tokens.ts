@@ -11,6 +11,8 @@ import { type IConfigService } from '../config/config-service.interface'
 import { type ILoggerService } from '../logger/logger.inteface'
 import { type IBrandsRepository } from '../../brands/intefaces/brands-repository.inteface'
 import { type IBrandsService } from '../../brands/intefaces/brands-service.inteface'
+import { type ISpecsRepository } from '../../specs/intefaces/specs-repository.inteface'
+import { type ISpecsService } from '../../specs/intefaces/specs-service.inteface'
 
 export const TOKENS = {
   app: token<App>('app'),
@@ -27,5 +29,9 @@ export const TOKENS = {
   brandsPrefix: token<string>('brandsPrefix'),
   brandsRepository: token<IBrandsRepository>('brandsRepository'),
   brandsController: token<BaseController>('brandsController'),
-  brandsService: token<IBrandsService>('brandsService')
+  brandsService: token<IBrandsService>('brandsService'),
+  specsPrefix: token<string>('specsPrefix'),
+  specsRepository: token<ISpecsRepository>('specsRepository'),
+  specsController: token<BaseController>('specsController'),
+  specsService: token<ISpecsService>('specsService')
 }

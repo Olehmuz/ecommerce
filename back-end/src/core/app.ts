@@ -22,7 +22,8 @@ export class App {
     private readonly databaseService: IDBService,
     private readonly authController: BaseController,
     private readonly categoriesController: BaseController,
-    private readonly brandsController: BaseController
+    private readonly brandsController: BaseController,
+    private readonly specsController: BaseController
   ) {
     this.app = express()
     this.server = this.app.listen(process.env.PORT ?? 7777, () => {
@@ -30,7 +31,7 @@ export class App {
         `[APP] Server running on port ${process.env.PORT ?? 7777}`
       )
     })
-    this.controllers = [authController, categoriesController, brandsController]
+    this.controllers = [authController, categoriesController, brandsController, specsController]
     this.middlewares = [new BodyParserMiddleware()]
   }
 
