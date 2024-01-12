@@ -1,4 +1,4 @@
-import { type NextFunction, type Request, type Response, type Router } from 'express'
+import { type NextFunction, type Response, type Router } from 'express'
 import { type IMiddleware } from '../middlewares/middleware.inteface'
 
 export interface IControllerRoute {
