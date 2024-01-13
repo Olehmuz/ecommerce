@@ -2,6 +2,7 @@ import { type Category } from '@prisma/client'
 import { type CreateCategoryDto } from './dto/create-category.dto'
 import { type ICategoriesRepository } from './intefaces/categories-repository.inteface'
 import { type ICategoriesService } from './intefaces/categories-service.inteface'
+import { type UpdateCategoryDto } from './dto/update-category.dto'
 
 export class CategoriesService implements ICategoriesService {
   constructor (private readonly categoriesRepository: ICategoriesRepository) {}
@@ -18,7 +19,7 @@ export class CategoriesService implements ICategoriesService {
     return await this.categoriesRepository.findCategoryById(id)
   }
 
-  async updateCategory (id: string, dto: CreateCategoryDto): Promise<Category> {
+  async updateCategory (id: string, dto: UpdateCategoryDto): Promise<Category> {
     return await this.categoriesRepository.updateCategory(id, dto)
   }
 

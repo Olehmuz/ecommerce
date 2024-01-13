@@ -1,10 +1,9 @@
 import { token } from 'brandi'
-import { type CategoriesRepository } from '../../categories/categories.repository'
-import { type ICategoriesRepository } from '../../categories/intefaces/categories-repository.inteface'
-import { type ICategoriesService } from '../../categories/intefaces/categories-service.inteface'
 import { type App } from '../app'
 
 import { type BaseController } from '../common/base.controller'
+import { type ICategoriesRepository } from '../../categories/intefaces/categories-repository.inteface'
+import { type ICategoriesService } from '../../categories/intefaces/categories-service.inteface'
 import { type IDBService } from '../common/database/database.inteface'
 import { type IException } from '../common/errors/exception-filter.inteface'
 import { type IConfigService } from '../config/config-service.interface'
@@ -16,6 +15,8 @@ import { type ISpecsService } from '../../specs/intefaces/specs-service.inteface
 import { type IFilesService } from '../../files/intefaces/files-service.inteface'
 import { type IDevicesRepository } from '../../devices/intefaces/devices-repository.inteface'
 import { type IDevicesService } from '../../devices/intefaces/devices-service.inteface'
+import { type IReviewsRepository } from '../../reviews/intefaces/reviews-repository.inteface'
+import { type IReviewsService } from '../../reviews/intefaces/reviews-service.inteface'
 
 export const TOKENS = {
   app: token<App>('app'),
@@ -43,5 +44,9 @@ export const TOKENS = {
   devicesPrefix: token<string>('devicesPrefix'),
   devicesRepository: token<IDevicesRepository>('devicesRepository'),
   devicesController: token<BaseController>('devicesController'),
-  devicesService: token<IDevicesService>('devicesService')
+  devicesService: token<IDevicesService>('devicesService'),
+  reviewsPrefix: token<string>('reviewsPrefix'),
+  reviewsRepository: token<IReviewsRepository>('reviewsRepository'),
+  reviewsController: token<BaseController>('reviewsController'),
+  reviewsService: token<IReviewsService>('reviewsService')
 }

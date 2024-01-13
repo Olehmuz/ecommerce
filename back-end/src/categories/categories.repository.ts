@@ -3,6 +3,7 @@ import { type DatabaseService } from '../core/common/database/database.service'
 import { type UpdateBrandDto } from '../brands/dto/update-brand.dto'
 import { type CreateCategoryDto } from './dto/create-category.dto'
 import { type ICategoriesRepository } from './intefaces/categories-repository.inteface'
+import { type UpdateCategoryDto } from './dto/update-category.dto'
 
 export class CategoriesRepository implements ICategoriesRepository {
   constructor (private readonly db: DatabaseService) {}
@@ -11,7 +12,7 @@ export class CategoriesRepository implements ICategoriesRepository {
     return await this.db.client.category.create({ data: dto })
   }
 
-  async updateCategory (id: string, dto: UpdateBrandDto): Promise<Category> {
+  async updateCategory (id: string, dto: UpdateCategoryDto): Promise<Category> {
     return await this.db.client.category.update({ where: { id }, data: dto })
   }
 

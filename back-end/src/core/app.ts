@@ -25,7 +25,8 @@ export class App {
     private readonly brandsController: BaseController,
     private readonly specsController: BaseController,
     private readonly filesController: BaseController,
-    private readonly devicesController: BaseController
+    private readonly devicesController: BaseController,
+    private readonly reviewsController: BaseController
   ) {
     this.app = express()
     this.server = this.app.listen(process.env.PORT ?? 7777, () => {
@@ -33,7 +34,15 @@ export class App {
         `[APP] Server running on port ${process.env.PORT ?? 7777}`
       )
     })
-    this.controllers = [authController, categoriesController, brandsController, specsController, filesController, devicesController]
+    this.controllers = [
+      authController,
+      categoriesController,
+      brandsController,
+      specsController,
+      filesController,
+      devicesController,
+      reviewsController
+    ]
     this.middlewares = [new BodyParserMiddleware()]
   }
 
@@ -43,12 +52,12 @@ export class App {
     this.useExceptionFilter()
     await this.databaseService.connect()
 
-    process.on('uncaughtException', err => {
+    process.on('uncaughtException', (err) => {
       this.logger.error(`Uncaught: ${err.toString()}`)
       process.exit(1)
     })
 
-    process.on('unhandledRejection', err => {
+    process.on('unhandledRejection', (err) => {
       if (err instanceof Error) {
         this.logger.error(`Unhandled: ${err.message}`)
       }

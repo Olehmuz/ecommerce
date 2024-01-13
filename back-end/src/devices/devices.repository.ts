@@ -13,7 +13,7 @@ export class DevicesRepository implements IDevicesRepository {
   }
 
   async updateDevice (id: string, dto: UpdateDeviceDto): Promise<Device> {
-    const device = { ...dto, specs: { connect: dto.specs?.map(spec => ({ id: spec })) } }
+    const device = { ...dto, specs: { set: dto.specs?.map(spec => ({ id: spec })) } }
 
     return await this.db.client.device.update({ where: { id }, data: device })
   }
@@ -27,10 +27,29 @@ export class DevicesRepository implements IDevicesRepository {
   }
 
   async findDeviceById (id: string): Promise<Device | null> {
-    return await this.db.client.device.findFirst({ where: { id } })
+    return await this.db.client.device.findFirst({
+      where: { id },
+      include: {
+        specs: {
+          include: { variants: true }
+        },
+        category: true,
+        brand: true,
+        reviews: true
+      }
+    })
   }
 
   async getDevicesList (): Promise<Device[] | null> {
-    return await this.db.client.device.findMany()
+    return await this.db.client.device.findMany({
+      include: {
+        specs: {
+          include: { variants: true }
+        },
+        category: true,
+        brand: true,
+        reviews: true
+      }
+    })
   }
 }

@@ -49,8 +49,8 @@ export class BrandsController extends BaseController {
 
   async createBrand (req: Request<{}, {}, CreateBrandDto>, res: Response): Promise<void> {
     const dto = req.body
-    const category = await this.BrandsService.createBrand(dto)
-    res.status(200).send(category)
+    const brand = await this.BrandsService.createBrand(dto)
+    res.status(200).send(brand)
   }
 
   async updateBrand (req: Request<{ id: string }, {}, UpdateBrandDto>, res: Response, next: NextFunction): Promise<void> {
@@ -63,23 +63,23 @@ export class BrandsController extends BaseController {
       return
     }
 
-    const category = await this.BrandsService.updateBrand(id, dto)
-    res.status(200).send(category)
+    const brand = await this.BrandsService.updateBrand(id, dto)
+    res.status(200).send(brand)
   }
 
   async getBrandsList (req: Request, res: Response): Promise<void> {
-    const Brands = await this.BrandsService.getBrandsList()
-    res.status(200).send(Brands)
+    const brands = await this.BrandsService.getBrandsList()
+    res.status(200).send(brands)
   }
 
   async findBrandById (req: Request<{ id: string }>, res: Response, next: NextFunction): Promise<void> {
     const id = req.params.id
-    const Brands = await this.BrandsService.findBrandById(id)
-    if (!Brands) {
-      next(new NotFoundException('No category found with such ID.'))
+    const brands = await this.BrandsService.findBrandById(id)
+    if (!brands) {
+      next(new NotFoundException('No brand found with such ID.'))
       return
     }
-    res.status(200).send(Brands)
+    res.status(200).send(brands)
   }
 
   async deleteBrand (req: Request<{ id: string }>, res: Response, next: NextFunction): Promise<void> {
