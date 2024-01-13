@@ -14,6 +14,8 @@ import { type IBrandsService } from '../../brands/intefaces/brands-service.intef
 import { type ISpecsRepository } from '../../specs/intefaces/specs-repository.inteface'
 import { type ISpecsService } from '../../specs/intefaces/specs-service.inteface'
 import { type IFilesService } from '../../files/intefaces/files-service.inteface'
+import { type IDevicesRepository } from '../../devices/intefaces/devices-repository.inteface'
+import { type IDevicesService } from '../../devices/intefaces/devices-service.inteface'
 
 export const TOKENS = {
   app: token<App>('app'),
@@ -37,5 +39,9 @@ export const TOKENS = {
   specsService: token<ISpecsService>('specsService'),
   filesPrefix: token<string>('filesPrefix'),
   filesController: token<BaseController>('filesController'),
-  filesService: token<IFilesService>('filesService')
+  filesService: token<IFilesService>('filesService'),
+  devicesPrefix: token<string>('devicesPrefix'),
+  devicesRepository: token<IDevicesRepository>('devicesRepository'),
+  devicesController: token<BaseController>('devicesController'),
+  devicesService: token<IDevicesService>('devicesService')
 }

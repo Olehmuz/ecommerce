@@ -20,17 +20,23 @@ export class FilesService implements IFilesService {
   async deleteFiles (filenames: string[]): Promise<string[]> {
     if (!filenames.length) throw new BadRequestException('Filenames are required.')
 
-    try {
-      const deletePromises = filenames.map(async filename => {
-        const filePath = path.join(process.cwd(), '/uploads', filename)
-        await fs.access(filePath)
-        await fs.unlink(filePath)
-      })
+    const deletePromises = filenames.map(async filename => {
+      const filePath = path.join(process.cwd(), '/uploads', filename)
 
-      await Promise.all(deletePromises)
-    } catch (error: any) {
-      throw new HttpError(500, error.message as string)
-    }
+      try {
+        await fs.access(filePath)
+      } catch (error) {
+        throw new NotFoundException('No such file or directory.')
+      }
+
+      try {
+        await fs.unlink(filePath)
+      } catch (error: any) {
+        throw new HttpError(500, 'Error while deleting file.')
+      }
+    })
+
+    await Promise.all(deletePromises)
 
     return filenames
   }
