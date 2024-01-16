@@ -2,7 +2,10 @@ import { z } from 'zod'
 
 export const CreateDeviceDtoSchema = z.object({
   body: z.object({
-    images: z.array(z.string()),
+    colors: z.array(z.object({
+      name: z.string(),
+      images: z.array(z.string())
+    })),
     model: z.string(),
     price: z.number().int().min(1),
     description: z.string().min(1),

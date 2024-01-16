@@ -28,7 +28,7 @@ model Device {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    images String[]
+    colors Color[]
     reviews Review[]
     specs Spec[]
 
@@ -44,6 +44,15 @@ model Device {
 
 }
 
+model Color {
+    id       String   @id @default(uuid())
+    name     String
+    images   String[]
+    deviceId String
+    device   Device   @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+
+}
+
 model Review {
     id        String   @id @default(uuid())
     createdAt DateTime @default(now())
@@ -53,7 +62,7 @@ model Review {
     comment String
 
     deviceId String
-    device   Device @relation(fields: [deviceId], references: [id])
+    device   Device @relation(fields: [deviceId], references: [id], onDelete: Cascade)
 }
 
 model Category {
