@@ -15,6 +15,7 @@ import { SpecsModule } from '../../specs/specs.module'
 import { FilesModule } from '../../files/files.module'
 import { DevicesModule } from '../../devices/devices.module'
 import { ReviewsModule } from '../../reviews/reviews.module'
+import { UsersModule } from '../../users/users.module'
 import { TOKENS } from './tokens'
 
 export const container = new Container()
@@ -27,6 +28,7 @@ container.use(TOKENS.specsController).from(SpecsModule)
 container.use(TOKENS.filesController).from(FilesModule)
 container.use(TOKENS.devicesController).from(DevicesModule)
 container.use(TOKENS.reviewsController).from(ReviewsModule)
+container.use(TOKENS.usersController).from(UsersModule)
 
 // Core dependencies
 container.bind(TOKENS.app).toInstance(App).inSingletonScope()
@@ -63,5 +65,6 @@ injected(
   TOKENS.specsController,
   TOKENS.filesController,
   TOKENS.devicesController,
-  TOKENS.reviewsController
+  TOKENS.reviewsController,
+  TOKENS.usersController
 )

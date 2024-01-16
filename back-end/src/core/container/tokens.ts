@@ -17,6 +17,8 @@ import { type IDevicesRepository } from '../../devices/intefaces/devices-reposit
 import { type IDevicesService } from '../../devices/intefaces/devices-service.inteface'
 import { type IReviewsRepository } from '../../reviews/intefaces/reviews-repository.inteface'
 import { type IReviewsService } from '../../reviews/intefaces/reviews-service.inteface'
+import { type IUsersRepository } from '../../users/intefaces/users-repository.inteface'
+import { type IUsersService } from '../../users/intefaces/users-service.inteface'
 
 export const TOKENS = {
   app: token<App>('app'),
@@ -48,5 +50,9 @@ export const TOKENS = {
   reviewsPrefix: token<string>('reviewsPrefix'),
   reviewsRepository: token<IReviewsRepository>('reviewsRepository'),
   reviewsController: token<BaseController>('reviewsController'),
-  reviewsService: token<IReviewsService>('reviewsService')
+  reviewsService: token<IReviewsService>('reviewsService'),
+  usersPrefix: token<string>('usersPrefix'),
+  usersRepository: token<IUsersRepository>('usersRepository'),
+  usersController: token<BaseController>('usersController'),
+  usersService: token<IUsersService>('usersService')
 }

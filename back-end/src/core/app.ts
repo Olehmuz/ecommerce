@@ -26,7 +26,8 @@ export class App {
     private readonly specsController: BaseController,
     private readonly filesController: BaseController,
     private readonly devicesController: BaseController,
-    private readonly reviewsController: BaseController
+    private readonly reviewsController: BaseController,
+    private readonly usersController: BaseController
   ) {
     this.app = express()
     this.server = this.app.listen(process.env.PORT ?? 7777, () => {
@@ -41,7 +42,8 @@ export class App {
       specsController,
       filesController,
       devicesController,
-      reviewsController
+      reviewsController,
+      usersController
     ]
     this.middlewares = [new BodyParserMiddleware()]
   }
