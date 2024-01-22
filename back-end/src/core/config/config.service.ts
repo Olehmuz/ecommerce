@@ -1,8 +1,8 @@
 import path from 'path'
 import { type DotenvParseOutput, config } from 'dotenv'
 
+import { type IConfigService } from '../config/config-service.interface'
 import { type ILoggerService } from '../logger/logger.inteface'
-import { type IConfigService } from './config-service.interface'
 
 export class ConfigService implements IConfigService {
   config: DotenvParseOutput

@@ -19,13 +19,13 @@ import { type IReviewsRepository } from '../../reviews/intefaces/reviews-reposit
 import { type IReviewsService } from '../../reviews/intefaces/reviews-service.inteface'
 import { type IUsersRepository } from '../../users/intefaces/users-repository.inteface'
 import { type IUsersService } from '../../users/intefaces/users-service.inteface'
+import { type IAuthService } from '../../auth/intefaces/auth-service.inteface'
+import { type IJWTService } from '../../auth/intefaces/jwt-service.inteface'
 
 export const TOKENS = {
   app: token<App>('app'),
   loggerService: token<ILoggerService>('loggerService'),
   configService: token<IConfigService>('configService'),
-  authController: token<BaseController>('authController'),
-  authPrefix: token<string>('authPrefix'),
   exceptionFilter: token<IException>('exception'),
   databaseService: token<IDBService>('databaseService'),
   categoriesPrefix: token<string>('categoriesPrefix'),
@@ -54,5 +54,9 @@ export const TOKENS = {
   usersPrefix: token<string>('usersPrefix'),
   usersRepository: token<IUsersRepository>('usersRepository'),
   usersController: token<BaseController>('usersController'),
-  usersService: token<IUsersService>('usersService')
+  usersService: token<IUsersService>('usersService'),
+  authPrefix: token<string>('authPrefix'),
+  authController: token<BaseController>('authController'),
+  authService: token<IAuthService>('authService'),
+  jwtService: token<IJWTService>('jwtService')
 }

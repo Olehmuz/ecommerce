@@ -1,5 +1,6 @@
 import { type NextFunction, type Request, type Response } from 'express'
 
+import { AuthMiddleware } from '../core/common/middlewares/authorization.middleware'
 import { NotFoundException } from '../core/common/errors/exceptions/not-found.exception'
 import { ValidatorMiddleware } from '../core/common/middlewares/validation.middleware'
 
@@ -22,7 +23,7 @@ export class ReviewsController extends BaseController {
         path: '',
         func: this.createReview,
         method: 'post',
-        middlewares: [new ValidatorMiddleware(CreateReviewDtoSchema)]
+        middlewares: [new AuthMiddleware(), new ValidatorMiddleware(CreateReviewDtoSchema)]
       },
       {
         path: '',
@@ -37,13 +38,14 @@ export class ReviewsController extends BaseController {
       {
         path: '/:id',
         func: this.deleteReview,
+        middlewares: [new AuthMiddleware()],
         method: 'delete'
       },
       {
         path: '/:id',
         func: this.updateReview,
         method: 'patch',
-        middlewares: [new ValidatorMiddleware(UpdateReviewDtoSchema)]
+        middlewares: [new AuthMiddleware(), new ValidatorMiddleware(UpdateReviewDtoSchema)]
       }
     ], prefix)
   }

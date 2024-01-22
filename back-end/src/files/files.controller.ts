@@ -1,4 +1,5 @@
 import { type NextFunction, type Request, type Response } from 'express'
+import { AuthMiddleware } from '../core/common/middlewares/authorization.middleware'
 import { BaseController } from '../core/common/base.controller'
 import { type ILoggerService } from '../core/logger/logger.inteface'
 
@@ -17,12 +18,13 @@ export class FilesController extends BaseController {
         path: '/upload',
         func: this.uploadFile,
         method: 'post',
-        middlewares: [new MulterMiddleware()]
+        middlewares: [new AuthMiddleware(), new MulterMiddleware()]
       },
       {
         path: '/delete',
         func: this.deleteFiles,
-        method: 'delete'
+        method: 'delete',
+        middlewares: [new AuthMiddleware()]
       }
     ], prefix)
   }

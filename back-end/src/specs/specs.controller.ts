@@ -1,5 +1,6 @@
 import { type NextFunction, type Request, type Response } from 'express'
 
+import { AuthMiddleware } from '../core/common/middlewares/authorization.middleware'
 import { NotFoundException } from '../core/common/errors/exceptions/not-found.exception'
 import { ValidatorMiddleware } from '../core/common/middlewares/validation.middleware'
 
@@ -23,7 +24,7 @@ export class SpecsController extends BaseController {
         path: '',
         func: this.createSpec,
         method: 'post',
-        middlewares: [new ValidatorMiddleware(CreateSpecDtoSchema)]
+        middlewares: [new AuthMiddleware(), new ValidatorMiddleware(CreateSpecDtoSchema)]
       },
       {
         path: '',
@@ -34,7 +35,7 @@ export class SpecsController extends BaseController {
         path: '/variants',
         func: this.createSpecVariant,
         method: 'post',
-        middlewares: [new ValidatorMiddleware(CreateSpecVariantDtoSchema)]
+        middlewares: [new AuthMiddleware(), new ValidatorMiddleware(CreateSpecVariantDtoSchema)]
       },
       {
         path: '/variants',
@@ -49,13 +50,14 @@ export class SpecsController extends BaseController {
       {
         path: '/variants/:id',
         func: this.deleteSpecVariant,
+        middlewares: [new AuthMiddleware()],
         method: 'delete'
       },
       {
         path: '/variants/:id',
         func: this.updateSpecVariant,
         method: 'patch',
-        middlewares: [new ValidatorMiddleware(UpdateSpecVariantDtoSchema)]
+        middlewares: [new AuthMiddleware(), new ValidatorMiddleware(UpdateSpecVariantDtoSchema)]
       },
       {
         path: '/:id',
@@ -65,13 +67,14 @@ export class SpecsController extends BaseController {
       {
         path: '/:id',
         func: this.deleteSpec,
+        middlewares: [new AuthMiddleware()],
         method: 'delete'
       },
       {
         path: '/:id',
         func: this.updateSpec,
         method: 'patch',
-        middlewares: [new ValidatorMiddleware(UpdateSpecDtoSchema)]
+        middlewares: [new AuthMiddleware(), new ValidatorMiddleware(UpdateSpecDtoSchema)]
       }
     ], prefix)
   }

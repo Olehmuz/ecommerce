@@ -5,6 +5,7 @@ import { ValidatorMiddleware } from '../core/common/middlewares/validation.middl
 
 import { BaseController } from '../core/common/base.controller'
 import { type ILoggerService } from '../core/logger/logger.inteface'
+import { AuthMiddleware } from '../core/common/middlewares/authorization.middleware'
 import { type IBrandsService } from './intefaces/brands-service.inteface'
 import { type CreateBrandDto, CreateBrandDtoSchema } from './dto/create-brand.dto'
 import { type UpdateBrandDto, UpdateBrandDtoSchema } from './dto/update-brand.dto'
@@ -21,7 +22,7 @@ export class BrandsController extends BaseController {
         path: '',
         func: this.createBrand,
         method: 'post',
-        middlewares: [new ValidatorMiddleware(CreateBrandDtoSchema)]
+        middlewares: [new AuthMiddleware(), new ValidatorMiddleware(CreateBrandDtoSchema)]
       },
       {
         path: '',
@@ -36,19 +37,21 @@ export class BrandsController extends BaseController {
       {
         path: '/:id',
         func: this.deleteBrand,
+        middlewares: [new AuthMiddleware()],
         method: 'delete'
       },
       {
         path: '/:id',
         func: this.updateBrand,
         method: 'patch',
-        middlewares: [new ValidatorMiddleware(UpdateBrandDtoSchema)]
+        middlewares: [new AuthMiddleware(), new ValidatorMiddleware(UpdateBrandDtoSchema)]
       }
     ], prefix)
   }
 
   async createBrand (req: Request<{}, {}, CreateBrandDto>, res: Response): Promise<void> {
     const dto = req.body
+    console.log(req.user)
     const brand = await this.BrandsService.createBrand(dto)
     res.status(200).send(brand)
   }

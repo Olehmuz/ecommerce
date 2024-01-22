@@ -1,5 +1,6 @@
 import { type NextFunction, type Request, type Response } from 'express'
 
+import { AuthMiddleware } from '../core/common/middlewares/authorization.middleware'
 import { NotFoundException } from '../core/common/errors/exceptions/not-found.exception'
 import { ValidatorMiddleware } from '../core/common/middlewares/validation.middleware'
 
@@ -22,7 +23,7 @@ export class DevicesController extends BaseController {
         path: '',
         func: this.createDevice,
         method: 'post',
-        middlewares: [new ValidatorMiddleware(CreateDeviceDtoSchema)]
+        middlewares: [new AuthMiddleware(), new ValidatorMiddleware(CreateDeviceDtoSchema)]
       },
       {
         path: '',
@@ -37,13 +38,14 @@ export class DevicesController extends BaseController {
       {
         path: '/:id',
         func: this.deleteDevice,
+        middlewares: [new AuthMiddleware()],
         method: 'delete'
       },
       {
         path: '/:id',
         func: this.updateDevice,
         method: 'patch',
-        middlewares: [new ValidatorMiddleware(UpdateDeviceDtoSchema)]
+        middlewares: [new AuthMiddleware(), new ValidatorMiddleware(UpdateDeviceDtoSchema)]
       }
     ], prefix)
   }

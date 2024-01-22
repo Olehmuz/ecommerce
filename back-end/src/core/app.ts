@@ -9,6 +9,8 @@ import { BodyParserMiddleware } from './common/middlewares/body-parser.middlewar
 import { type IMiddleware } from './common/middlewares/middleware.inteface'
 import { type IConfigService } from './config/config-service.interface'
 import { type ILoggerService } from './logger/logger.inteface'
+import { SessionMiddleware } from './common/middlewares/session.middleware'
+import { CorsMiddleware } from './common/middlewares/cors.middleware'
 
 export class App {
   private readonly app: express.Express
@@ -28,6 +30,7 @@ export class App {
     private readonly devicesController: BaseController,
     private readonly reviewsController: BaseController,
     private readonly usersController: BaseController
+
   ) {
     this.app = express()
     this.server = this.app.listen(process.env.PORT ?? 7777, () => {
@@ -45,7 +48,7 @@ export class App {
       reviewsController,
       usersController
     ]
-    this.middlewares = [new BodyParserMiddleware()]
+    this.middlewares = [new BodyParserMiddleware(), new CorsMiddleware(), new SessionMiddleware()]
   }
 
   async init (): Promise<void> {

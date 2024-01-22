@@ -2,7 +2,6 @@ import { Container, injected } from 'brandi'
 
 import { AuthModule } from '../../auth/auth.module'
 import { CategoriesModule } from '../../categories/categories.module'
-import { CategoriesRepository } from '../../categories/categories.repository'
 import { App } from '../app'
 
 import { DatabaseService } from '../common/database/database.service'

@@ -8,4 +8,5 @@ export interface IUsersRepository {
   deleteUser: (id: string) => Promise<User>
   findUserById: (id: string) => Promise<User | null>
   getUsersList: () => Promise<User[] | null>
+  findUserByFilter: (filter: any) => Promise<User | null>
 }
