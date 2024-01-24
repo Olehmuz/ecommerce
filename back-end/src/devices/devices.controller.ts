@@ -6,6 +6,7 @@ import { ValidatorMiddleware } from '../core/common/middlewares/validation.middl
 
 import { BaseController } from '../core/common/base.controller'
 import { type ILoggerService } from '../core/logger/logger.inteface'
+import { type IPaginationOptions } from '../lib/get-pagination'
 import { type IDevicesService } from './intefaces/devices-service.inteface'
 
 import { UpdateDeviceDtoSchema, type UpdateDeviceDto } from './dto/update-device.dto'
@@ -70,8 +71,10 @@ export class DevicesController extends BaseController {
     res.status(200).send(device)
   }
 
-  async getDevicesList (req: Request, res: Response): Promise<void> {
-    const devices = await this.devicesService.getDevicesList()
+  async getDevicesList (req: Request<{}, {}, IPaginationOptions>, res: Response): Promise<void> {
+    const page = req.query.page ? +req.query.page : 1
+    const limit = req.query.limit ? +req.query.limit : 30
+    const devices = await this.devicesService.getDevicesList({ page, limit })
     res.status(200).send(devices)
   }
 

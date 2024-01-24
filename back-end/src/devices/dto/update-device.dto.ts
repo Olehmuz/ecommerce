@@ -4,7 +4,8 @@ export const UpdateDeviceDtoSchema = z.object({
   body: z.object({
     colors: z.array(z.object({
       name: z.string(),
-      images: z.array(z.string())
+      images: z.array(z.string()),
+      slug: z.string()
     })).optional(),
     model: z.string().optional(),
     price: z.number().int().min(1).optional(),

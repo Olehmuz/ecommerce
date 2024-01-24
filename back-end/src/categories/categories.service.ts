@@ -1,4 +1,5 @@
 import { type Category } from '@prisma/client'
+import { type IPaginationOptions } from '../lib/get-pagination'
 import { type CreateCategoryDto } from './dto/create-category.dto'
 import { type ICategoriesRepository } from './intefaces/categories-repository.inteface'
 import { type ICategoriesService } from './intefaces/categories-service.inteface'

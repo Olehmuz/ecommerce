@@ -6,6 +6,8 @@ import { ValidatorMiddleware } from '../core/common/middlewares/validation.middl
 
 import { BaseController } from '../core/common/base.controller'
 import { type ILoggerService } from '../core/logger/logger.inteface'
+import { type IPaginationOptions } from '../lib/get-pagination'
+import { BadRequestException } from '../core/common/errors/exceptions/bad-request.exception'
 import { type ICategoriesService } from './intefaces/categories-service.inteface'
 
 import { UpdateCategoryDtoSchema, type UpdateCategoryDto } from './dto/update-category.dto'

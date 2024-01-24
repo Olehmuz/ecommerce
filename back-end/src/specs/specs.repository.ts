@@ -1,5 +1,6 @@
 import { type SpecVariant, type Spec } from '@prisma/client'
 import { type DatabaseService } from '../core/common/database/database.service'
+import { generateSlug } from '../lib/generate-slug-from-string'
 import { type CreateSpecDto } from './dto/create-spec.dto'
 import { type ISpecsRepository } from './intefaces/specs-repository.inteface'
 import { type UpdateSpecDto } from './dto/update-spec.dto'
@@ -10,7 +11,8 @@ export class SpecsRepository implements ISpecsRepository {
   constructor (private readonly db: DatabaseService) {}
 
   async createSpec (dto: CreateSpecDto): Promise<Spec> {
-    return await this.db.client.spec.create({ data: dto })
+    const slug = generateSlug(dto.name)
+    return await this.db.client.spec.create({ data: { ...dto, slug } })
   }
 
   async updateSpec (id: string, dto: UpdateSpecDto): Promise<Spec> {
@@ -34,7 +36,8 @@ export class SpecsRepository implements ISpecsRepository {
   }
 
   async createSpecVariant (dto: CreateSpecVariantDto): Promise<SpecVariant> {
-    return await this.db.client.specVariant.create({ data: dto })
+    const slug = generateSlug(dto.value)
+    return await this.db.client.specVariant.create({ data: { ...dto, slug } })
   }
 
   async updateSpecVariant (id: string, dto: UpdateSpecVariantDto): Promise<SpecVariant> {

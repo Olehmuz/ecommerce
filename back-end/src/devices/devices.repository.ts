@@ -1,5 +1,7 @@
 import { type Device } from '@prisma/client'
 import { type DatabaseService } from '../core/common/database/database.service'
+import { generateSlug } from '../lib/generate-slug-from-string'
+import { type IPaginationOptions } from '../lib/get-pagination'
 import { type CreateDeviceDto } from './dto/create-device.dto'
 import { type IDevicesRepository } from './intefaces/devices-repository.inteface'
 import { type UpdateDeviceDto } from './dto/update-device.dto'
@@ -18,7 +20,9 @@ export class DevicesRepository implements IDevicesRepository {
   constructor (private readonly db: DatabaseService) {}
 
   async createDevice (dto: CreateDeviceDto): Promise<Device> {
-    const device = { ...dto, specs: { connect: dto.specs?.map(spec => ({ id: spec })) }, colors: { create: dto.colors } }
+    const slug = generateSlug(dto.model)
+    const colorWithSlug = dto.colors.map((el) => ({ ...el, slug: generateSlug(el.name) }))
+    const device = { ...dto, specs: { connect: dto.specs?.map(spec => ({ id: spec })) }, colors: { create: colorWithSlug }, slug }
     return await this.db.client.device.create({
       data: device,
       include
@@ -56,9 +60,13 @@ export class DevicesRepository implements IDevicesRepository {
     })
   }
 
-  async getDevicesList (): Promise<Device[] | null> {
+  async getDevicesList ({ page, limit }: IPaginationOptions): Promise<Device[]> {
     return await this.db.client.device.findMany({
       include
     })
+  }
+
+  async countDevices (): Promise<number> {
+    return await this.db.client.device.count()
   }
 }

@@ -31,8 +31,9 @@ model Device {
     colors Color[]
     reviews Review[]
     specs Spec[]
-
+    
     model String
+    slug String @unique
     price Int
     description String
 
@@ -46,8 +47,12 @@ model Device {
 
 model Color {
     id       String   @id @default(uuid())
+
     name     String
+    slug String @unique
+
     images   String[]
+
     deviceId String
     device   Device   @relation(fields: [deviceId], references: [id], onDelete: Cascade)
 
@@ -71,6 +76,10 @@ model Category {
     updatedAt DateTime @updatedAt
 
     name String
+    slug String @unique
+    
+    images   String[]
+  
     devices Device[]
 }
 
@@ -80,6 +89,10 @@ model Brand {
     updatedAt DateTime @updatedAt
 
     name String
+    slug String @unique
+
+    images   String[]
+
     devices Device[]
 }
 
@@ -89,6 +102,8 @@ model Spec {
     updatedAt DateTime @updatedAt
 
     name String
+    slug String @unique
+
     variants SpecVariant[]
 
     device  Device[]
@@ -100,6 +115,7 @@ model SpecVariant {
     updatedAt DateTime @updatedAt
 
     value String
+    slug String @unique
 
     specId String
     spec   Spec @relation(fields: [specId], references: [id])

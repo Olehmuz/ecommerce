@@ -8,7 +8,7 @@ import { type IMiddleware } from './middleware.inteface'
 
 function checkFileType (file: Express.Multer.File, cb: multer.FileFilterCallback): any {
   // Allowed file types
-  const filetypes = /jpeg|jpg|png|gif/
+  const filetypes = /jpeg|jpg|png|gif|webp/
   // Check extension
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase())
   // Check mime
@@ -17,7 +17,7 @@ function checkFileType (file: Express.Multer.File, cb: multer.FileFilterCallback
   if (mimetype && extname) {
     cb(null, true)
   } else {
-    cb(new HttpError(400, 'Allowed file types: jpeg|jpg|png|gif'))
+    cb(new HttpError(400, 'Allowed file types: jpeg|jpg|png|gif|webp'))
   }
 }
 
